@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.WebAPI", "DriveClone.WebAPI\DriveClone.WebAPI.csproj", "{F040B020-A73B-4ACC-9796-43202C96B6ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Domain", "DriveClone.Domain\DriveClone.Domain.csproj", "{FE973F6C-9F6E-4BDE-9818-B78117389B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Infrastructure", "DriveClone.Infrastructure\DriveClone.Infrastructure.csproj", "{6FE11D59-4A75-419B-B69C-1733EC794DA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Services", "DriveClone.Services\DriveClone.Services.csproj", "{898A99DB-344C-4734-B120-3CDD3EE1BB83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Test", "DriveClone.Test\DriveClone.Test.csproj", "{1B6428FD-B5C5-4E13-87C8-BD12623FAF36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7429EED9-CDE7-43E3-B0FB-7C374FBC4F35}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F040B020-A73B-4ACC-9796-43202C96B6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F040B020-A73B-4ACC-9796-43202C96B6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F040B020-A73B-4ACC-9796-43202C96B6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F040B020-A73B-4ACC-9796-43202C96B6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE973F6C-9F6E-4BDE-9818-B78117389B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE973F6C-9F6E-4BDE-9818-B78117389B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE973F6C-9F6E-4BDE-9818-B78117389B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE973F6C-9F6E-4BDE-9818-B78117389B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FE11D59-4A75-419B-B69C-1733EC794DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE11D59-4A75-419B-B69C-1733EC794DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FE11D59-4A75-419B-B69C-1733EC794DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FE11D59-4A75-419B-B69C-1733EC794DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{898A99DB-344C-4734-B120-3CDD3EE1BB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{898A99DB-344C-4734-B120-3CDD3EE1BB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{898A99DB-344C-4734-B120-3CDD3EE1BB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{898A99DB-344C-4734-B120-3CDD3EE1BB83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B6428FD-B5C5-4E13-87C8-BD12623FAF36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B6428FD-B5C5-4E13-87C8-BD12623FAF36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B6428FD-B5C5-4E13-87C8-BD12623FAF36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B6428FD-B5C5-4E13-87C8-BD12623FAF36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1B6428FD-B5C5-4E13-87C8-BD12623FAF36} = {7429EED9-CDE7-43E3-B0FB-7C374FBC4F35}
+	EndGlobalSection
+EndGlobal

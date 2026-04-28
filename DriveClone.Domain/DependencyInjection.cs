@@ -1,6 +1,6 @@
-﻿namespace DriveClone.Domain;
+namespace DriveClone.Domain;
 
 public class DependencyInjection
 {
-
+    
 }

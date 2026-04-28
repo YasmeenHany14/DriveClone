@@ -1,7 +1,5 @@
-﻿namespace DriveClone.Test
-{
-    public class Class1
-    {
+﻿namespace DriveClone.Test;
 
-    }
+public class Class1
+{
 }

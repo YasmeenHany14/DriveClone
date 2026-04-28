@@ -1,7 +1,6 @@
-﻿namespace DriveClone.Infrastructure
-{
-    public class DependencyInjection
-    {
+namespace DriveClone.Infrastructure;
 
-    }
+public class DependencyInjection
+{
+    
 }
