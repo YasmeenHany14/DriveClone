@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Domain", "DriveC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Infrastructure", "DriveClone.Infrastructure\DriveClone.Infrastructure.csproj", "{6FE11D59-4A75-419B-B69C-1733EC794DA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Services", "DriveClone.Services\DriveClone.Services.csproj", "{898A99DB-344C-4734-B120-3CDD3EE1BB83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Application", "DriveClone.Application\DriveClone.Application.csproj", "{898A99DB-344C-4734-B120-3CDD3EE1BB83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveClone.Test", "DriveClone.Test\DriveClone.Test.csproj", "{1B6428FD-B5C5-4E13-87C8-BD12623FAF36}"
 EndProject

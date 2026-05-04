@@ -19,7 +19,7 @@
     <ItemGroup>
       <ProjectReference Include="..\DriveClone.Domain\DriveClone.Domain.csproj" />
       <ProjectReference Include="..\DriveClone.Infrastructure\DriveClone.Infrastructure.csproj" />
-      <ProjectReference Include="..\DriveClone.Services\DriveClone.Services.csproj" />
+      <ProjectReference Include="..\DriveClone.Application\DriveClone.Application.csproj" />
     </ItemGroup>
 
 </Project>
