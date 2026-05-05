@@ -8,11 +8,14 @@ namespace DriveClone.Infrastructure.Persistence.Repositories;
 public class UnitOfWork: IUnitOfWork
 {
     private readonly DataContext _dbContext;
+    public IRefreshTokenRepository RefreshTokenRepository { get; }
 
     public UnitOfWork(
-        DataContext dbContext)
+        DataContext dbContext,
+        IRefreshTokenRepository refreshTokenRepository)
     {
         _dbContext = dbContext;
+        RefreshTokenRepository = refreshTokenRepository;
     }
     
     public async Task<int> SaveChangesAsync()
