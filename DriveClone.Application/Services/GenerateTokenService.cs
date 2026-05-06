@@ -24,10 +24,15 @@ public class GenerateTokenService(
         var expires = configuration.GetValue<int>("Jwt:ExpireMinutes");
         var audience = configuration.GetValue<string>("Jwt:Audience");
         var issuer = configuration.GetValue<string>("Jwt:Issuer");
-
+        var claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName), 
+        };
+        
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(user.Id),
+            Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddMinutes(expires),
             Issuer = issuer,
             Audience = audience,

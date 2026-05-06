@@ -12,8 +12,8 @@ public class CreateUserValidator : AbstractValidator<CreateUserAppDto>
     public CreateUserValidator(
         UserManager<User> userManager)
     {
-        RuleLevelCascadeMode = CascadeMode.Stop;
-        ClassLevelCascadeMode = CascadeMode.Stop;
+        // RuleLevelCascadeMode = CascadeMode.Stop;
+        // ClassLevelCascadeMode = CascadeMode.Stop;
         
         RuleSet("Input", () =>
         {

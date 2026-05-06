@@ -7,6 +7,7 @@ using DriveClone.Application.DTOs.AuthDtos;
 using DriveClone.Domain.Models;
 using DriveClone.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace DriveClone.Application.Services;
 
@@ -53,7 +54,7 @@ public class AuthService(
     public async Task<Result<AuthTokensResponse>> RefreshTokenAsync(string accessToken, string refreshToken)
     {
         var principal = await generateTokenService.GetPrincipalFromExpiredToken(accessToken);
-        var userId = principal.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = principal.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
         if (string.IsNullOrEmpty(userId))
         {

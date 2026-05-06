@@ -1,8 +1,11 @@
 using DriveClone.Domain.Models;
 using DriveClone.Domain.Repositories;
+using DriveClone.Domain.UserContext;
+using DriveClone.Infrastructure.Helpers;
 using DriveClone.Infrastructure.Persistence;
 using DriveClone.Infrastructure.Persistence.Interceptors;
 using DriveClone.Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +28,11 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         
+        services.AddSingleton<IUserContext, UserContext>();
+
+        services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<DataContext>()
+            .AddDefaultTokenProviders();
         return services;
     }
 }
