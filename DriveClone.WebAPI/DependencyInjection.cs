@@ -1,5 +1,7 @@
 using System.Security.Claims;
 using System.Text;
+using DriveClone.WebAPI.ExceptionHandlers;
+using DriveClone.WebAPI.Helpers.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -10,6 +12,8 @@ public static class DependencyInjection
     public static IServiceCollection AddWebApi(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddProblemDetails();
+        services.AddScoped<CanAccessResourceFilter>();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
         
         #region Configure JWT Authentication
         services.AddAuthentication(options =>

@@ -1,0 +1,36 @@
+﻿using DriveClone.Domain.UserContext;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+
+namespace DriveClone.WebAPI.Helpers.Filters;
+
+public class CanAccessResourceFilter(
+    IUserContext userContext
+    ) : Attribute, IAsyncActionFilter
+{
+    public async Task OnActionExecutionAsync(ActionExecutingContext context,
+        ActionExecutionDelegate next)
+    {
+        var isAuthenticated = userContext.IsAuthenticated;
+        
+        if (!isAuthenticated)
+        {
+            context.Result = new UnauthorizedResult();
+            return;
+        }
+        
+        var userId = userContext.UserId.ToString();
+
+        string? id = null;
+        var hasOwnerId = context.ActionArguments.ContainsKey("id");
+        if (hasOwnerId)
+            id = context.ActionArguments["id"]?.ToString() ?? string.Empty;
+        else
+        {
+            if (context.ActionArguments.TryGetValue("id", out var objId))
+                id = objId?.ToString() ?? string.Empty;
+        }
+        // allow the movement of the request to the next middleware only if not short-circuited
+        await next();
+    }
+}

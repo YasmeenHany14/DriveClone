@@ -12,6 +12,8 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAntiforgery();
+
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddWebApi(builder.Configuration);
@@ -28,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseAntiforgery();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.UseSwagger();
