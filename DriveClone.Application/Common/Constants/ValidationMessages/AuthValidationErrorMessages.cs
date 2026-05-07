@@ -4,6 +4,8 @@ public static class AuthValidationErrorMessages
 {
     public const string PasswordMinLength = "Password must be at least {0} characters long.";
     public const string InvalidEmailFormat = "Invalid email format.";
+    public const string EmailTaken = "Email is already taken.";
+    public const string PasswordSameAsOldOne = "Choose a password different from the current one.";
     
     // Register
     public const string InvalidEmail = "Invalid email format.";

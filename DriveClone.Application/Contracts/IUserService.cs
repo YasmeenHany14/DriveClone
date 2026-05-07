@@ -9,4 +9,6 @@ public interface IUserService
     Task<Result<string>> AddAsync(CreateUserAppDto createUserDto);
     Task<Result<GetUserByIdAppDto>> GetByIdAsync(string id);
     Task<Result> DeleteAsync(string id);
+    Task<Result> UpdateAsync(string id, UpdateUserAppDto updateDto);
+    Task<Result> ChangePasswordAsync(string userId, UpdatePasswordRequestAppDto updateDto);
 }

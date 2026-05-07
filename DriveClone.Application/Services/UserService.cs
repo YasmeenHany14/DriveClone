@@ -17,7 +17,8 @@ public class UserService(
     IAuthService authService,
     UserManager<User> userManager,
     IMapper mapper,
-    IValidator<CreateUserAppDto> createUserValidator) : IUserService
+    IValidator<CreateUserAppDto> createUserValidator,
+    IValidator<UpdateUserAppDto> updateUserValidator) : IUserService
 {
     public async Task<Result<string>> AddAsync(CreateUserAppDto createUserDto)
     {
@@ -52,5 +53,42 @@ public class UserService(
         var identityResult = await userManager.UpdateAsync(user);
 
         return identityResult.Succeeded ? Result.Success() : Result.Failure(CommonErrors.InternalServerError(ErrorMsgs.CannotDeleteUser));
+    }
+
+    public async Task<Result> UpdateAsync(string id, UpdateUserAppDto updateDto)
+    {
+        var validationResult = await ValidationHelper.ValidateAndReportAsync(updateUserValidator,
+            updateDto,
+            ctx => { ctx.RootContextData["userId"] = id; },
+            "UpdateBusiness");
+        if (!validationResult.IsSuccess)
+            return Result<bool>.Failure(validationResult.Error);
+        
+        var user = await userManager.FindByIdAsync(id);
+        if (user == null)
+            return Result<bool>.Failure(CommonErrors.NotFound());
+            
+        mapper.Map(updateDto, user);
+        var identityResult = await userManager.UpdateAsync(user);
+        if (!identityResult.Succeeded)
+            return Result<bool>.Failure(CommonErrors.InternalServerError());
+        return Result<bool>.Success(true);
+    }
+
+    public async Task<Result> ChangePasswordAsync(string userId, UpdatePasswordRequestAppDto  updateDto)
+    {
+        var user = await userManager.FindByIdAsync(userId);
+        if (user == null)
+            return Result.Failure(CommonErrors.NotFound());
+
+        var identityResult = await userManager.ChangePasswordAsync(user, updateDto.CurrentPassword, updateDto.NewPassword);
+        if (identityResult.Succeeded)
+            return Result.Success();
+
+        var errors = identityResult.Errors.GroupBy(x => x.Code)
+            .ToDictionary(
+                x => x.Key,
+                x => x.Select(e => e.Description).ToArray());
+        return Result.Failure(CommonErrors.ValidationProblem(errors));
     }
 }

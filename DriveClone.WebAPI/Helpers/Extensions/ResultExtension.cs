@@ -42,8 +42,11 @@ public static class ResultExtension
                 => (403, "Forbidden.", "https://tools.ietf.org/html/rfc9110#section-15.5.4"),
 
             nameof(CommonErrors.InvalidInput)
-                or "InvalidInput"
+                or nameof(CommonErrors.PatchValidationProblem)
                 => (400, "Invalid input.", "https://tools.ietf.org/html/rfc9110#section-15.5.1"),
+            
+            nameof(AuthErrors.UserNotActive)
+                => (400, error.Code, "https://tools.ietf.org/html/rfc9110#section-15.5.1"),
 
             nameof(CommonErrors.ValidationProblem)
                 or "ValidationProblem"
@@ -76,7 +79,7 @@ public static class ResultExtension
             Type     = type,
             Title    = title,
             Status   = status,
-            // Detail   = error.Description,
+            Detail   = error.Description,
             Instance = instance
         };
         return new ObjectResult(problem) { StatusCode = status };

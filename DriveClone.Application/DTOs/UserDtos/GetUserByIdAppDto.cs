@@ -1,6 +1,6 @@
 namespace DriveClone.Application.DTOs.UserDtos;
 
-public class GetUserByIdAppDto
+public class GetUserByIdAppDto : AppBaseDto
 {
     public string Id { get; set; }
     public string Username { get; set; }

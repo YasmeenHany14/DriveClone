@@ -1,6 +1,7 @@
 using DriveClone.Application;
 using DriveClone.Infrastructure;
 using DriveClone.WebAPI;
+using DriveClone.WebAPI.Helpers;
 using DriveClone.WebAPI.Helpers.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(new ValidationFilter());
-    // options.InputFormatters.Insert(0, JsonPatchInputFormatter.GetJsonPatchInputFormatter());
+    options.InputFormatters.Insert(0, JsonPatchInputFormatter.GetJsonPatchInputFormatter());
 });
 
 builder.Services.AddHttpContextAccessor();

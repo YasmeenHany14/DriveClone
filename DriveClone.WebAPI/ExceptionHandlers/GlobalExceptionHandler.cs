@@ -22,8 +22,9 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
 
         var problemDetails = new ProblemDetails
         {
+            Type = "https://tools.ietf.org/html/rfc9110#section-15.6.1",
             Status = StatusCodes.Status500InternalServerError,
-            Title = "Server error"
+            Title = "An unexpected error occurred.",
         };
         httpContext.Response.Headers.Append("Access-Control-Allow-Origin", "*");
         httpContext.Response.StatusCode = problemDetails.Status.Value;

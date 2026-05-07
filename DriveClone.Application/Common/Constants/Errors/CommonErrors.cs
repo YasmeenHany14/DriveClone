@@ -15,7 +15,10 @@ public static class CommonErrors
         => new("InvalidRefreshToken", customMessage ?? "The provided token is invalid or has expired.");
     
     public static Error ValidationProblem(Dictionary<string, string[]> errors, string? customMessage = null)
-    => new ("ValidationProblem", customMessage ?? "One or more validation error occured",  errors);
+    => new ("ValidationProblem", customMessage ?? "One or more validation errors occured",  errors);
+    
+    public static Error PatchValidationProblem(string? customMessage = null)
+        => new Error("PatchValidationProblem", customMessage ?? "Patch document is malformed, couldn't be patched.");
     
     public static Error NotFound(string? customMessage = null) 
         => new("NotFound", customMessage ?? CommonValidationErrorMessages.ResourceNotFound);
