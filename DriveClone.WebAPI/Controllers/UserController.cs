@@ -48,7 +48,7 @@ public class UserController(
     [HttpDelete("{id}", Name = "DeleteUser")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [RequireAntiforgeryToken]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ServiceFilter<CanAccessResourceFilter>]
     public async Task<IActionResult> DeleteAsync(string id)
     {
@@ -60,7 +60,7 @@ public class UserController(
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // [RequireAntiforgeryToken]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ServiceFilter<CanAccessResourceFilter>]
     public async Task<IActionResult> UpdateAsync(
         string id, JsonPatchDocument<UpdateUserAppDto> patchDocument)
@@ -89,8 +89,8 @@ public class UserController(
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [InputValidationFilter<UpdatePasswordRequestAppDto>]
-    // [RequireAntiforgeryToken]
     [ServiceFilter<CanAccessResourceFilter>]
     public async Task<IActionResult> ChangePasswordAsync(string id,
         UpdatePasswordRequestAppDto passwordDto)

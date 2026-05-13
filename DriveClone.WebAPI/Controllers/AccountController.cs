@@ -2,16 +2,17 @@ using DriveClone.Application.Contracts;
 using DriveClone.Application.DTOs.AuthDtos;
 using DriveClone.WebAPI.Helpers.Extensions;
 using DriveClone.WebAPI.Helpers.Filters;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DriveClone.WebAPI.Controllers;
 
-[ApiController ]
+[ApiController]
 [Route("api/[controller]")]
 public class AccountController(
     IAuthService authService
-    ) : ControllerBase
+) : ControllerBase
 {
     // Login
     [HttpPost("login")]

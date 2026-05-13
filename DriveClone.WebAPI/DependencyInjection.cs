@@ -13,6 +13,7 @@ public static class DependencyInjection
     {
         services.AddProblemDetails();
         services.AddScoped<CanAccessResourceFilter>();
+        
         services.AddExceptionHandler<GlobalExceptionHandler>();
         
         #region Configure JWT Authentication
