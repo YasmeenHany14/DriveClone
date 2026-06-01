@@ -4,6 +4,7 @@ using DriveClone.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveClone.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20260524144147_AddFieldsToUserEntity")]
+    partial class AddFieldsToUserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,11 +56,7 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("FileType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FolderId")
+                    b.Property<int>("FileType")
                         .HasColumnType("int");
 
                     b.Property<string>("ModifiedBy")
@@ -81,8 +80,6 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FolderId");
 
                     b.HasIndex("OwnerId");
 
@@ -112,9 +109,6 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FolderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -126,7 +120,11 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ParentId")
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<string>("PubId")
@@ -135,7 +133,7 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FolderId");
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("ParentId");
 
@@ -274,61 +272,6 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("DriveClone.Domain.Models.UserFolder", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AccessPermission")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FolderId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsOwner")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PubId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FolderId");
-
-                    b.HasIndex("UserId", "FolderId")
-                        .IsUnique();
-
-                    b.ToTable("UserFolders");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -464,10 +407,6 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("DriveClone.Domain.Models.FileMetaData", b =>
                 {
-                    b.HasOne("DriveClone.Domain.Models.Folder", null)
-                        .WithMany("Files")
-                        .HasForeignKey("FolderId");
-
                     b.HasOne("DriveClone.Domain.Models.User", null)
                         .WithMany()
                         .HasForeignKey("OwnerId")
@@ -483,14 +422,19 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("DriveClone.Domain.Models.Folder", b =>
                 {
-                    b.HasOne("DriveClone.Domain.Models.Folder", null)
-                        .WithMany("SubFolders")
-                        .HasForeignKey("FolderId");
+                    b.HasOne("DriveClone.Domain.Models.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DriveClone.Domain.Models.Folder", "Parent")
                         .WithMany()
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
 
                     b.Navigation("Parent");
                 });
@@ -502,25 +446,6 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DriveClone.Domain.Models.UserFolder", b =>
-                {
-                    b.HasOne("DriveClone.Domain.Models.Folder", "Folder")
-                        .WithMany()
-                        .HasForeignKey("FolderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DriveClone.Domain.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Folder");
 
                     b.Navigation("User");
                 });
@@ -574,13 +499,6 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DriveClone.Domain.Models.Folder", b =>
-                {
-                    b.Navigation("Files");
-
-                    b.Navigation("SubFolders");
                 });
 
             modelBuilder.Entity("DriveClone.Domain.Models.User", b =>

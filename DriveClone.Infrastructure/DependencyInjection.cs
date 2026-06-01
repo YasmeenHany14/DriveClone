@@ -5,6 +5,7 @@ using DriveClone.Infrastructure.Helpers;
 using DriveClone.Infrastructure.Persistence;
 using DriveClone.Infrastructure.Persistence.Interceptors;
 using DriveClone.Infrastructure.Persistence.Repositories;
+using DriveClone.Infrastructure.Persistence.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,7 @@ public static class DependencyInjection
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         
         services.AddSingleton<IUserContext, UserContext>();
+        services.AddTransient<Seed>();
 
         services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<DataContext>()

@@ -1,8 +1,11 @@
 using DriveClone.Application;
+using DriveClone.Domain.Models;
 using DriveClone.Infrastructure;
+using DriveClone.Infrastructure.Persistence.SeedData;
 using DriveClone.WebAPI;
 using DriveClone.WebAPI.Helpers;
 using DriveClone.WebAPI.Helpers.Filters;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +31,24 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+#region Seed Data
+if (args.Length == 1 && args[0].ToLower() == "seeddata")
+    SeedData(app);
+
+void SeedData(IHost app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using var scope = scopedFactory.CreateScope();
+    var service = scope.ServiceProvider.GetService<Seed>();
+    var userManager = scope.ServiceProvider.GetService<UserManager<User>>();
+    Console.WriteLine("checking whether service is created");
+    Console.WriteLine(userManager == null);
+    service.SeedDataContext(userManager);
+}
+#endregion
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

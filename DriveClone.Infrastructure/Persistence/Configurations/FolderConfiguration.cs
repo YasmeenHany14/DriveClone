@@ -1,4 +1,5 @@
 using DriveClone.Domain.Models;
+using DriveClone.Domain.Shared.Constraints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,7 +12,7 @@ public class FolderConfiguration : IEntityTypeConfiguration<Folder>
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Name)
             .IsRequired()
-            .HasMaxLength(50);
+            .HasMaxLength(FolderConstraints.NameMaxLength);
 
         builder.HasOne(p => p.Parent)
             .WithMany()

@@ -4,5 +4,6 @@ public enum FileType
 {
     Image,
     Video,
-    PDF
+    PDF,
+    TXT
 }

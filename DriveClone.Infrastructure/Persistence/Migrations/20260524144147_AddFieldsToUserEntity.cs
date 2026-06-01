@@ -11,6 +11,13 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
+                name: "OwnerId",
+                table: "Folders",
+                type: "nvarchar(450)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
                 name: "FirstName",
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
@@ -30,11 +37,36 @@ namespace DriveClone.Infrastructure.Persistence.Migrations
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Folders_OwnerId",
+                table: "Folders",
+                column: "OwnerId");
+
+            // migrationBuilder.AddForeignKey(
+            //     name: "FK_Folders_AspNetUsers_OwnerId",
+            //     table: "Folders",
+            //     column: "OwnerId",
+            //     principalTable: "AspNetUsers",
+            //     principalColumn: "Id",
+            //     onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            // migrationBuilder.DropForeignKey(
+            //     name: "FK_Folders_AspNetUsers_OwnerId",
+            //     table: "Folders");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Folders_OwnerId",
+                table: "Folders");
+
+            migrationBuilder.DropColumn(
+                name: "OwnerId",
+                table: "Folders");
+
             migrationBuilder.DropColumn(
                 name: "FirstName",
                 table: "AspNetUsers");
