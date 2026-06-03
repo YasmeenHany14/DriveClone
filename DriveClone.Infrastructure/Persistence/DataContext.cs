@@ -18,4 +18,5 @@ public class DataContext : IdentityDbContext<User>
     public DbSet<Folder> Folders { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<UserFolder> UserFolders { get; set; }
+    public DbSet<UserFile> UserFiles { get; set; }
 }
