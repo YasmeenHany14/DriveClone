@@ -19,7 +19,7 @@ public class FileMetaDataConfiguration : IEntityTypeConfiguration<FileMetaData>
             .IsRequired()
             .HasMaxLength(FileMetadataConstraints.FilePathMaxLength); //TODO change later on
 
-        builder.HasOne<User>()
+        builder.HasOne(x => x.Owner)
             .WithMany()
             .HasForeignKey(x => x.OwnerId);
         

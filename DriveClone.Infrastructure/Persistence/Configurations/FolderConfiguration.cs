@@ -14,9 +14,12 @@ public class FolderConfiguration : IEntityTypeConfiguration<Folder>
             .IsRequired()
             .HasMaxLength(FolderConstraints.NameMaxLength);
 
-        builder.HasOne(p => p.Parent)
-            .WithMany()
-            .HasForeignKey(f => f.ParentId)
-            .OnDelete(DeleteBehavior.NoAction);
+        builder.Property(p => p.Path)
+            .IsRequired();
+        
+        builder.HasOne(x => x.Owner)
+            .WithMany(u => u.Folders)
+            .HasForeignKey(f => f.OwnerId)
+            .OnDelete(DeleteBehavior.NoAction); //TODO: handle deletion manually
     }
 }

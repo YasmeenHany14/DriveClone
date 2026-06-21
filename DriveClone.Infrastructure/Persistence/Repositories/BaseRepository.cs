@@ -3,6 +3,8 @@ using AutoMapper.QueryableExtensions;
 using DriveClone.Domain.Models;
 using DriveClone.Domain.Repositories;
 using DriveClone.Domain.Shared.ResourceParameters;
+using DriveClone.Domain.Specifications;
+using DriveClone.Infrastructure.Persistence.Specifications;
 using Microsoft.EntityFrameworkCore;
 
 namespace DriveClone.Infrastructure.Persistence.Repositories;
@@ -13,6 +15,18 @@ public class BaseRepository<TEntity>(DataContext context, IMapper mapper) : IBas
     public BaseRepository(DataContext context) : this(context, null)
     {
     }
+    //
+    // protected IQueryable<TEntity> ApplySpecification(
+    //     BaseSpecification<TEntity> specification)
+    // {
+    //     return SpecificationEvaluator.GetQuery(context.Set<TEntity>(), specification);
+    // }
+    //
+    // public virtual async Task<TEntity?> GetEntityAsync(BaseSpecification<TEntity> specification)
+    // {
+    //     var query = ApplySpecification(specification);
+    //     return await query.FirstOrDefaultAsync();
+    // }
     
     public virtual async Task<TEntity?> GetByIdAsync(int id)
     {

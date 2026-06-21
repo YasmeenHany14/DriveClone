@@ -10,6 +10,6 @@ public class FileMetaData : BaseEntity
     public FileType FileType { get; set; }
     public int  ParentFolderId { get; set; }
     public string FilePath { get; set; }
+    public User Owner { get; set;  }
 }
-
 //TODO:modification history later on?

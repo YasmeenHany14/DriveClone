@@ -10,4 +10,9 @@
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="10.0.7" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Specifications\FolderSpecifications\" />
+      <Folder Include="Specifications\RefreshTokenSpecifications\" />
+    </ItemGroup>
+
 </Project>

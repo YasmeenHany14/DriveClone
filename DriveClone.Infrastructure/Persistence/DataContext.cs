@@ -17,6 +17,9 @@ public class DataContext : IdentityDbContext<User>
     public DbSet<FileMetaData> FilesMetaData { get; set; }
     public DbSet<Folder> Folders { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-    public DbSet<UserFolder> UserFolders { get; set; }
-    public DbSet<UserFile> UserFiles { get; set; }
+    public DbSet<AccessPermissionRole> AccessPermissionRoles { get; set; }
+    public DbSet<FileShareLink>  FileShareLinks { get; set; }
+    public DbSet<FolderShareLink> FolderShareLinks { get; set; }
+    public DbSet<UserFolderSharingPermissions> UserFolderSharingPermissions { get; set; }
+    public DbSet<UserFileSharingPermissions> UserFileSharingPermissions { get; set; }
 }
